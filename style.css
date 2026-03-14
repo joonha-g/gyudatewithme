@@ -6,7 +6,7 @@ body {
     background-color: #ffe6e6;
     font-family: 'Pretendard', 'Malgun Gothic', sans-serif;
     margin: 0;
-    overflow: hidden; /* 버튼이 화면 밖으로 나가는 것을 방지 */
+    overflow: hidden; 
 }
 
 .container {
@@ -26,10 +26,13 @@ h1 {
     font-size: 2.5rem;
 }
 
+
 .gif-container img {
-    width: 250px;
-    border-radius: 15px;
-    margin-bottom: 30px;
+    width: 80%;       /* 기본적으로 부모 너비의 80%를 차지하게 합니다 (반응형) */
+    max-width: 400px;  /* 아무리 커져도 400px는 넘지 않게 합니다 (기존 250px에서 증량) */
+    height: auto;      /* 비율에 맞춰 높이는 자동 조절 */
+    border-radius: 30px;
+    margin-bottom: 50px;
 }
 
 .buttons {
@@ -45,13 +48,13 @@ button {
     border-radius: 25px;
     cursor: pointer;
     font-weight: bold;
-    transition: transform 0.2s;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
 #yes-btn {
     background-color: #ff4d4d;
     color: white;
+    transition: transform 0.2s;
 }
 
 #yes-btn:hover {
@@ -62,5 +65,11 @@ button {
 #no-btn {
     background-color: #f1f1f1;
     color: #555;
-    /* 자바스크립트로 위치를 제어하기 위해 absolute 속성이 추가될 예정입니다 */
+    
+    /* [중요!] 버튼이 도망갈 때 부드럽게 보이게 하는 마법의 코드 */
+    transition: all 0.15s ease-out; 
+    
+    /* JavaScript가 위치를 제어하기 전에 기본 위치를 잡아줍니다 */
+    position: relative; 
+    z-index: 10; /* 버튼이 다른 요소 위에 오도록 설정 */
 }
