@@ -6,6 +6,10 @@ const title = document.querySelector('h1');
 let hoverCount = 0;
 let isPhaseTwo = false; 
 let lastTime = 0; 
+let chances = 6; // 남은 기회 6번으로 시작!
+
+// 처음 화면이 켜질 때 버튼 텍스트 세팅
+noBtn.innerText = `아니... (남은 기회: ${chances})`;
 
 function handleEvade(e) {
     if (e.type === 'touchstart') {
@@ -13,25 +17,34 @@ function handleEvade(e) {
     }
 
     const now = new Date().getTime();
-    // 인식 주기를 50ms로 줄여서 반응 속도를 대폭 올렸습니다!
     if (now - lastTime < 50) return;
     lastTime = now;
 
-    if (!isPhaseTwo) {
+    // 기회가 남아있을 때만 실행
+    if (chances > 0) {
+        chances--; // 기회 1 차감
         hoverCount++;
         
-        // 도망가는 횟수를 5번에서 3번으로 줄였습니다.
+        // 버튼 글씨 업데이트
+        noBtn.innerText = `아니... (남은 기회: ${chances})`;
+
+        // 3번째 터치 시 사진과 문구 변경 (남은 기회 3번일 때)
         if (hoverCount === 3) {
             title.innerText = "정말...? 🥺";
             mainGif.src = "사진2.jpg"; 
             isPhaseTwo = true; 
-            moveRight(); 
-        } else {
-            moveNoButtonRandomly();
         }
-    } else {
-        moveRight();
+
+        // 기회를 다 써서 0이 된 순간!
+        if (chances === 0) {
+            noBtn.style.display = 'none'; // '아니' 버튼을 아예 없애버림
+            title.innerText = "이제 '아니'는 없어! 😎"; // 문구도 재치있게 변경
+            return; // 도망가는 함수는 더 이상 실행하지 않고 종료
+        }
     }
+    
+    // 기회가 0이 아닐 때는 무조건 랜덤 위치로 도망갑니다!
+    moveNoButtonRandomly();
 }
 
 noBtn.addEventListener('mouseover', handleEvade);
@@ -47,25 +60,10 @@ function moveNoButtonRandomly() {
     noBtn.style.top = `${randomY + 25}px`;
 }
 
-function moveRight() {
-    noBtn.style.position = 'fixed';
-    
-    const rect = noBtn.getBoundingClientRect();
-    let currentLeft = rect.left;
-    let currentTop = rect.top; 
-    
-    currentLeft += 60; 
-    
-    if (currentLeft + noBtn.offsetWidth > window.innerWidth) {
-        currentLeft = 20; 
-    }
-    
-    noBtn.style.left = `${currentLeft}px`;
-    noBtn.style.top = `${currentTop}px`; 
-}
-
 function sayYes() {
     title.innerText = "야호! 데이트 날짜 잡자! 🎉";
     mainGif.src = "사진3.jpg"; 
+    
+    // 남은 버튼들 모두 숨기기
     document.querySelector('.buttons').style.display = 'none'; 
 }
