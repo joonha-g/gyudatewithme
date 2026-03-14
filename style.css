@@ -1,0 +1,66 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #ffe6e6;
+    font-family: 'Pretendard', 'Malgun Gothic', sans-serif;
+    margin: 0;
+    overflow: hidden; /* 버튼이 화면 밖으로 나가는 것을 방지 */
+}
+
+.container {
+    text-align: center;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    color: #ff4d4d;
+    margin-bottom: 20px;
+    font-size: 2.5rem;
+}
+
+.gif-container img {
+    width: 250px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+}
+
+.buttons {
+    position: relative;
+    display: flex;
+    gap: 20px;
+}
+
+button {
+    font-size: 20px;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: transform 0.2s;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+#yes-btn {
+    background-color: #ff4d4d;
+    color: white;
+}
+
+#yes-btn:hover {
+    background-color: #ff1a1a;
+    transform: scale(1.1);
+}
+
+#no-btn {
+    background-color: #f1f1f1;
+    color: #555;
+    /* 자바스크립트로 위치를 제어하기 위해 absolute 속성이 추가될 예정입니다 */
+}
